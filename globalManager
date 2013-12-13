@@ -1,0 +1,76 @@
+package jxr;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.util.HashMap;
+
+import javax.swing.JLabel;
+
+public class globalManager {
+
+	public static final int global_rows = 20;
+	public static final int global_cols = 10;
+	private static int[][] globalData = null;
+
+	/***
+	 * get gloabal data list
+	 * 
+	 * @return
+	 */
+	private static previewPanel prePanel;
+
+	public synchronized static previewPanel getPreviewPanel() {
+		if (prePanel == null)
+			prePanel = new previewPanel();
+		return prePanel;
+	}
+
+	private static JLabel score;
+
+	public synchronized static JLabel getScore() {
+		if (score == null) {
+			score = new JLabel("0");
+			score.setHorizontalAlignment(JLabel.CENTER);
+			Font font = new Font("俄罗斯方块",Font.CENTER_BASELINE,28);
+			score.setForeground(Color.red);
+			score.setFont(font);
+		}
+		return score;
+	}
+
+	/***
+	 * get gloabal data list
+	 * 
+	 * @return
+	 */
+	public synchronized static int[][] getGlobalData() {
+		if (globalData == null) {
+			globalData = new int[global_rows][global_cols];
+			for (int i = 0; i < global_rows; i++) {
+				for (int j = 0; j < global_cols; j++)
+					globalData[i][j] = 0;
+			}
+		}
+		return globalData;
+	}
+
+	/***
+	 * get gloabal button list
+	 * 
+	 * @return
+	 */
+
+	private static HashMap<String, JLabel> btList = null;
+
+	public synchronized static HashMap<String, JLabel> getBtList() {
+		if (btList == null) {
+			btList = new HashMap<String, JLabel>();
+			for (int i = 0; i < global_rows; i++) {
+				for (int j = 0; j < global_rows; j++)
+					btList.put(i + "_" + j, new JLabel("  +  "));
+			}
+		}
+		return btList;
+	}
+
+}
